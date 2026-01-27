@@ -248,7 +248,15 @@ nav a[aria-current="page"]::after {
   height: 2px;
   background-color: var(--secondary-color);
 }
-
+.mt-4{
+  margin-top: 32px !important;
+}
+.mt-0{
+  margin-top: 0 !important
+}
+.pt-0{
+  padding-top: 0 !important
+}
 /* Mobile Menu Toggle */
 .menu-toggle {
   display: none;
@@ -446,6 +454,27 @@ section {
 }
 
 /* ============================================
+   VALUE CREATION
+   ============================================ */
+.capabilities-grid{
+  display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.capability-item {
+  max-width: 320px;
+  width: 100%;
+}
+.capability-item img{
+  margin-bottom: 16px;
+}
+.capability-item ul{
+  padding: 0 !important
+}
+/* ============================================
    PORTFOLIO COMPONENTS
    ============================================ */
 .portfolio-companies {
@@ -456,6 +485,9 @@ section {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+}
+.portfolio-company p{
+  margin: 0 !important
 }
 
 .portfolio-company-header {
@@ -486,7 +518,7 @@ table {
 }
 
 .regulatory-table {
-  margin-top: var(--spacing-lg);
+  margin-top: 0 !important;
   margin-bottom: var(--spacing-lg);
 }
 
@@ -649,6 +681,7 @@ table tbody tr:hover {
   color: var(--text-color);
   padding-left: 16px;
   position: relative;
+
 }
 
 .founder-card .team-bio li::before {
@@ -728,6 +761,7 @@ table tbody tr:hover {
   color: var(--text-color);
   padding-left: 16px;
   position: relative;
+  margin-bottom: 8px !important;
 }
 
 .team-bio li::before {
