@@ -440,6 +440,83 @@ section {
   margin-top: 0;
 }
 
+.portfolio-company h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   PORTFOLIO COMPONENTS
+   ============================================ */
+.portfolio-companies {
+  margin-top: var(--spacing-xl);
+}
+
+.portfolio-company {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.portfolio-company-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.portfolio-logo {
+  max-width: 160px;
+  height: auto;
+}
+
+.portfolio-company p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-lg) 0;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.regulatory-table {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+table thead {
+  background-color: var(--bg-light);
+}
+
+table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--border-color);
+  font-family: var(--font-body);
+}
+
+table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table tbody tr:hover {
+  background-color: var(--bg-light);
+}
+
 /* Map Container */
 .map-container {
   position: relative;
@@ -1221,6 +1298,21 @@ body.modal-open {
   .footer-nav {
     flex-direction: column;
     gap: var(--spacing-sm);
+  }
+
+  table {
+    font-size: 0.875rem;
+  }
+
+  table th,
+  table td {
+    padding: var(--spacing-sm);
+  }
+
+  .regulatory-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
