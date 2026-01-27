@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refactoring UI - Principles Demo</title>
+    <style>
+        /* ============================================
+           REFACTORING UI PRINCIPLES IMPLEMENTATION
+           ============================================ */
+
+        /* 1. SPACING AND SIZING SYSTEM
+           Start with 16px base, use factors and multiples */
+        :root {
+            /* Spacing scale - based on 16px with 25%+ differences */
+            --space-1: 4px;
+            /* 0.25 * 16 */
+            --space-2: 8px;
+            /* 0.5 * 16 */
+            --space-3: 12px;
+            /* 0.75 * 16 */
+            --space-4: 16px;
+            /* 1 * 16 (base) */
+            --space-5: 24px;
+            /* 1.5 * 16 */
+            --space-6: 32px;
+            /* 2 * 16 */
+            --space-8: 48px;
+            /* 3 * 16 */
+            --space-10: 64px;
+            /* 4 * 16 */
+            --space-12: 96px;
+            /* 6 * 16 */
+            --space-16: 128px;
+            /* 8 * 16 */
+
+            /* Type scale - hand-crafted, not modular */
+            --text-xs: 12px;
+            --text-sm: 14px;
+            --text-base: 16px;
+            --text-lg: 18px;
+            --text-xl: 20px;
+            --text-2xl: 24px;
+            --text-3xl: 30px;
+            --text-4xl: 36px;
+            --text-5xl: 48px;
+
+            /* Color system - HSL format */
+            /* Greys - slightly saturated for temperature */
+            --grey-50: hsl(220, 14%, 96%);
+            --grey-100: hsl(220, 13%, 91%);
+            --grey-200: hsl(220, 12%, 84%);
+            --grey-300: hsl(220, 11%, 71%);
+            --grey-400: hsl(220, 10%, 57%);
+            --grey-500: hsl(220, 9%, 46%);
+            --grey-600: hsl(220, 9%, 38%);
+            --grey-700: hsl(220, 10%, 30%);
+            --grey-800: hsl(220, 12%, 22%);
+            --grey-900: hsl(220, 15%, 15%);
+
+            /* Primary color - Blue with shades */
+            --blue-50: hsl(214, 100%, 97%);
+            --blue-100: hsl(214, 95%, 93%);
+            --blue-200: hsl(214, 90%, 86%);
+            --blue-300: hsl(214, 85%, 75%);
+            --blue-400: hsl(214, 80%, 62%);
+            --blue-500: hsl(214, 75%, 50%);
+            --blue-600: hsl(214, 70%, 42%);
+            --blue-700: hsl(214, 75%, 35%);
+            --blue-800: hsl(214, 80%, 28%);
+            --blue-900: hsl(214, 85%, 20%);
+
+            /* Accent colors */
+            --green-500: hsl(142, 71%, 45%);
+            --red-500: hsl(0, 84%, 60%);
+            --yellow-500: hsl(45, 93%, 58%);
+
+            /* Elevation shadows - 5 levels */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: var(--text-base);
+            line-height: 1.6;
+            color: var(--grey-900);
+            background-color: var(--grey-50);
+        }
+
+        /* 2. TYPOGRAPHY SYSTEM */
+        h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            line-height: 1.1;
+            /* Tighter for large text */
+            color: var(--grey-900);
+            margin-bottom: var(--space-6);
+        }
+
+        h2 {
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--grey-800);
+            margin-top: var(--space-10);
+            margin-bottom: var(--space-5);
+        }
+
+        h3 {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--grey-800);
+            margin-top: var(--space-8);
+            margin-bottom: var(--space-4);
+        }
+
+        p {
+            font-size: var(--text-base);
+            line-height: 1.75;
+            /* Proportional to line length */
+            color: var(--grey-700);
+            margin-bottom: var(--space-4);
+            max-width: 65ch;
+            /* 45-75 characters per line */
+        }
+
+        /* 3. LAYOUT - Don't fill the whole screen */
+        .container {
+            max-width: 800px;
+            /* Optimal reading width */
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-5);
+        }
+
+        /* 4. HIERARCHY - Not all elements are equal */
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+        }
+
+        /* 5. CARDS WITH DEPTH */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-5);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-elevated {
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* 6. BUTTONS - Hierarchy first, semantics second */
+        .btn {
+            display: inline-block;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 6px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--blue-500);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--blue-600);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--blue-600);
+            border: 1px solid var(--blue-300);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--blue-50);
+        }
+
+        .btn-tertiary {
+            background-color: transparent;
+            color: var(--grey-600);
+            text-decoration: underline;
+        }
+
+        .btn-tertiary:hover {
+            color: var(--grey-900);
+        }
+
+        /* 7. FORM ELEMENTS - Supercharge the defaults */
+        .form-group {
+            margin-bottom: var(--space-6);
+        }
+
+        label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--grey-700);
+            margin-bottom: var(--space-2);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--grey-300);
+            border-radius: 6px;
+            font-size: var(--text-base);
+            background-color: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--blue-500);
+            box-shadow: 0 0 0 3px var(--blue-100);
+        }
+
+        /* Custom checkbox - supercharge defaults */
+        .checkbox-group {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--blue-500);
+            cursor: pointer;
+        }
+
+        /* 8. ACCENT BORDERS - Add color with accent borders */
+        .card-accent {
+            border-top: 4px solid var(--blue-500);
+        }
+
+        .alert {
+            padding: var(--space-4);
+            border-radius: 6px;
+            border-left: 4px solid;
+            margin-bottom: var(--space-5);
+        }
+
+        .alert-success {
+            background-color: hsl(142, 71%, 95%);
+            border-color: var(--green-500);
+            color: hsl(142, 71%, 25%);
+        }
+
+        .alert-warning {
+            background-color: hsl(45, 93%, 95%);
+            border-color: var(--yellow-500);
+            color: hsl(45, 93%, 25%);
+        }
+
+        /* 9. EMPHASIZE BY DE-EMPHASIZING */
+        .nav {
+            display: flex;
+            gap: var(--space-6);
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--grey-200);
+            margin-bottom: var(--space-8);
+        }
+
+        .nav-link {
+            color: var(--grey-500);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--grey-700);
+        }
+
+        .nav-link.active {
+            color: var(--blue-600);
+            border-bottom: 2px solid var(--blue-600);
+            padding-bottom: var(--space-4);
+            margin-bottom: calc(-1 * var(--space-4) - 1px);
+        }
+
+        /* 10. LABELS ARE A LAST RESORT */
+        .data-display {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .data-value {
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            color: var(--grey-900);
+        }
+
+        .data-context {
+            font-size: var(--text-sm);
+            color: var(--grey-500);
+        }
+
+        /* 11. SPACING - Start with too much white space */
+        .spacing-demo {
+            padding: var(--space-10);
+            background: var(--grey-100);
+            border-radius: 8px;
+            margin: var(--space-8) 0;
+        }
+
+        /* 12. DECORATE BACKGROUNDS */
+        .hero {
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-600) 100%);
+            color: white;
+            padding: var(--space-12) var(--space-8);
+            border-radius: 8px;
+            margin-bottom: var(--space-10);
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: var(--space-5);
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-lg);
+            max-width: 60ch;
+            margin: 0 auto;
+        }
+
+        /* 13. USE FEWER BORDERS */
+        .list-item {
+            padding: var(--space-4);
+            margin-bottom: var(--space-3);
+            background: var(--grey-50);
+            border-radius: 6px;
+        }
+
+        .list-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 14. EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--grey-500);
+        }
+
+        .empty-state-icon {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-5);
+            opacity: 0.5;
+        }
+
+        /* 15. GRID - Not everything needs to be fluid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* Utility classes */
+        .text-primary {
+            color: var(--grey-900);
+        }
+
+        .text-secondary {
+            color: var(--grey-600);
+        }
+
+        .text-tertiary {
+            color: var(--grey-400);
+        }
+
+        .mt-4 {
+            margin-top: var(--space-4);
+        }
+
+        .mt-6 {
+            margin-top: var(--space-6);
+        }
+
+        .mb-4 {
+            margin-bottom: var(--space-4);
+        }
+
+        .mb-6 {
+            margin-bottom: var(--space-6);
+        }
+
+        /* ============================================
+           SRE ALERT CARDS - Enhanced Design
+           ============================================ */
+
+        .alert-card {
+            background: hsl(220, 15%, 12%);
+            border-radius: 8px;
+            margin-bottom: var(--space-4);
+            transition: all 0.2s;
+            border-left: 4px solid;
+            box-shadow: var(--shadow-md);
+        }
+
+        .alert-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        /* Priority-based accent borders */
+        .alert-card-p1 {
+            border-left-color: hsl(0, 84%, 60%);
+        }
+
+        .alert-card-p2 {
+            border-left-color: hsl(25, 90%, 55%);
+        }
+
+        .alert-card-p3 {
+            border-left-color: hsl(214, 75%, 50%);
+        }
+
+        .alert-card-p4 {
+            border-left-color: var(--grey-600);
+        }
+
+        /* Resolved cards are de-emphasized */
+        .alert-card-resolved {
+            opacity: 0.7;
+            background: hsl(220, 15%, 10%);
+        }
+
+        .alert-card-content {
+            padding: var(--space-5);
+        }
+
+        .alert-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
+        }
+
+        .alert-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: var(--text-lg);
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .alert-card-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .alert-card-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            line-height: 1.4;
+            color: white;
+            margin: 0 0 var(--space-2) 0;
+        }
+
+        .alert-card-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-sm);
+            color: var(--grey-400);
+        }
+
+        .alert-priority {
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .alert-priority-p1 {
+            background: hsl(0, 84%, 20%);
+            color: hsl(0, 84%, 70%);
+        }
+
+        .alert-priority-p2 {
+            background: hsl(25, 90%, 20%);
+            color: hsl(25, 90%, 70%);
+        }
+
+        .alert-priority-p3 {
+            background: hsl(214, 75%, 20%);
+            color: hsl(214, 75%, 70%);
+        }
+
+        .alert-priority-p4 {
+            background: var(--grey-700);
+            color: var(--grey-400);
+        }
+
+        .alert-separator {
+            color: var(--grey-600);
+        }
+
+        .alert-date {
+            color: var(--grey-500);
+        }
+
+        .alert-card-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            flex-shrink: 0;
+        }
+
+        .alert-status {
+            padding: var(--space-2) var(--space-4);
+            border-radius: 6px;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .alert-status-open {
+            background: hsl(214, 75%, 20%);
+            color: hsl(214, 75%, 80%);
+        }
+
+        .alert-status-open:hover {
+            background: hsl(214, 75%, 25%);
+        }
+
+        .alert-status-investigating {
+            background: hsl(45, 93%, 20%);
+            color: hsl(45, 93%, 80%);
+        }
+
+        .alert-status-investigating:hover {
+            background: hsl(45, 93%, 25%);
+        }
+
+        .alert-status-resolved {
+            background: hsl(142, 71%, 20%);
+            color: hsl(142, 71%, 80%);
+        }
+
+        .alert-status-resolved:hover {
+            background: hsl(142, 71%, 25%);
+        }
+
+        .alert-icons {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .alert-icon {
+            font-size: var(--text-lg);
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .alert-icon:hover {
+            opacity: 1;
+        }
+
+        .alert-icon-badge {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .alert-icon-grid {
+            font-size: var(--text-lg);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .alert-icon-badge:hover .alert-icon-grid {
+            opacity: 1;
+        }
+
+        .alert-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: hsl(214, 75%, 50%);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid hsl(220, 15%, 12%);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .alert-card-header {
+                flex-wrap: wrap;
+            }
+
+            .alert-card-actions {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: var(--space-3);
+            }
+
+            .alert-card-title {
+                font-size: var(--text-base);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Hero Section - Decorate backgrounds -->
+        <div class="hero">
+            <h1>Refactoring UI Principles</h1>
+            <p>This page demonstrates key principles from "Refactoring UI" by Adam Wathan & Steve Schoger. Each section showcases practical applications of design principles.</p>
+        </div>
+
+        <!-- Navigation - Emphasize by de-emphasizing -->
+        <nav class="nav">
+            <a href="#hierarchy" class="nav-link active">Hierarchy</a>
+            <a href="#spacing" class="nav-link">Spacing</a>
+            <a href="#typography" class="nav-link">Typography</a>
+            <a href="#color" class="nav-link">Color</a>
+            <a href="#depth" class="nav-link">Depth</a>
+        </nav>
+
+        <!-- Section: Hierarchy is Everything -->
+        <section id="hierarchy" class="section">
+            <h2>Hierarchy is Everything</h2>
+            <p class="text-secondary">Not all elements are equal. Use size, weight, and color to create clear visual hierarchy.</p>
+
+            <div class="card">
+                <h3>Size isn't everything</h3>
+                <p class="text-primary">This is primary content with normal weight but darker color.</p>
+                <p class="text-secondary">This is secondary content - same size but lighter color for hierarchy.</p>
+                <p class="text-tertiary">This is tertiary content - even lighter to de-emphasize.</p>
+            </div>
+
+            <div class="card">
+                <h3>Labels are a last resort</h3>
+                <div class="data-display">
+                    <div class="data-value">janedoe@example.com</div>
+                    <div class="data-context">Email address</div>
+                </div>
+                <div class="data-display mt-4">
+                    <div class="data-value">$19.99</div>
+                    <div class="data-context">Price</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Spacing System -->
+        <section id="spacing" class="section">
+            <h2>Layout and Spacing</h2>
+            <p>Start with too much white space, then remove until it looks right.</p>
+
+            <div class="spacing-demo">
+                <p>This section demonstrates generous spacing. Notice how the padding creates breathing room and makes the content feel less cramped.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Card 1</h3>
+                    <p>Fixed width cards that don't need to be fluid.</p>
+                </div>
+                <div class="card">
+                    <h3>Card 2</h3>
+                    <p>Using minmax for responsive behavior.</p>
+                </div>
+                <div class="card">
+                    <h3>Card 3</h3>
+                    <p>Not everything needs to fill the screen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Typography -->
+        <section id="typography" class="section">
+            <h2>Designing Text</h2>
+
+            <div class="card">
+                <h3>Type Scale</h3>
+                <p style="font-size: var(--text-xs);">Extra Small (12px)</p>
+                <p style="font-size: var(--text-sm);">Small (14px)</p>
+                <p style="font-size: var(--text-base);">Base (16px)</p>
+                <p style="font-size: var(--text-lg);">Large (18px)</p>
+                <p style="font-size: var(--text-xl);">Extra Large (20px)</p>
+                <p style="font-size: var(--text-2xl);">2XL (24px)</p>
+                <p style="font-size: var(--text-3xl);">3XL (30px)</p>
+                <p style="font-size: var(--text-4xl);">4XL (36px)</p>
+            </div>
+
+            <div class="card">
+                <h3>Line Length</h3>
+                <p>This paragraph demonstrates optimal line length. It's constrained to approximately 65 characters per line (45-75 range) for the best reading experience. Notice how comfortable it is to read compared to
+                    text that spans the full width of the screen.</p>
+            </div>
+
+            <div class="card">
+                <h3>Line Height is Proportional</h3>
+                <p style="line-height: 1.5;">Smaller text needs more line height (1.5) to help your eyes find the next line.</p>
+                <h3 style="line-height: 1.1;">Large headlines can use tighter line height (1.1) since your eyes don't need as much help.</h3>
+            </div>
+        </section>
+
+        <!-- Section: Color System -->
+        <section id="color" class="section">
+            <h2>Working with Color</h2>
+            <p>Using HSL format for intuitive color manipulation. Colors are defined with hue, saturation, and lightness.</p>
+
+            <div class="card card-accent">
+                <h3>Accent Borders</h3>
+                <p>This card uses an accent border at the top to add color without being overwhelming.</p>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>Success!</strong> This alert uses a colored background with proper contrast for accessibility.
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> Notice how the color supports the message but doesn't rely on color alone.
+            </div>
+
+            <div class="card">
+                <h3>Button Hierarchy</h3>
+                <p>Primary actions are obvious, secondary actions are clear but not prominent, tertiary actions are discoverable but unobtrusive.</p>
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-4);">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary Action</button>
+                    <button class="btn btn-tertiary">Tertiary Action</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Creating Depth -->
+        <section id="depth" class="section">
+            <h2>Creating Depth</h2>
+            <p>Use shadows to convey elevation and create a sense of depth.</p>
+
+            <div class="card">
+                <h3>Small Shadow</h3>
+                <p>This card uses a small shadow - feels slightly raised.</p>
+            </div>
+
+            <div class="card card-elevated">
+                <h3>Large Shadow</h3>
+                <p>This card uses a large shadow - feels much closer to the user and captures attention.</p>
+            </div>
+        </section>
+
+        <!-- Section: Forms -->
+        <section class="section">
+            <h2>Supercharge the Defaults</h2>
+            <p>Customize form elements to add personality and improve the design.</p>
+
+            <div class="card">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="Your message here..."></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="subscribe">
+                        <label for="subscribe" style="margin: 0;">Subscribe to newsletter</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section: Empty State -->
+        <section class="section">
+            <h2>Don't Overlook Empty States</h2>
+            <div class="empty-state">
+                <div class="empty-state-icon">📭</div>
+                <h3>No items yet</h3>
+                <p>Get started by creating your first item.</p>
+                <button class="btn btn-primary mt-6">Create Item</button>
+            </div>
+        </section>
+
+        <!-- Section: Lists without borders -->
+        <section class="section">
+            <h2>Use Fewer Borders</h2>
+            <p>Create separation with spacing and background colors instead of borders.</p>
+
+            <div>
+                <div class="list-item">
+                    <strong>Item 1</strong>
+                    <p class="text-secondary" style="margin: var(--space-2) 0 0 0;">Description for item 1</p>
+                </div>
+                <div class="list-item">
+                    <strong>Item 2</strong>
+                    <p class="text-secondary" style="margin: var(--space-2) 0 0 0;">Description for item 2</p>
+                </div>
+                <div class="list-item">
+                    <strong>Item 3</strong>
+                    <p class="text-secondary" style="margin: var(--space-2) 0 0 0;">Description for item 3</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: SRE Alert Cards - Enhanced -->
+        <section class="section" style="background: var(--grey-900); color: white;">
+            <h2 style="color: white;">SRE Alert Cards - Enhanced Design</h2>
+            <p style="color: var(--grey-300);">Applying Refactoring UI principles to FireHydrant alert cards</p>
+
+            <div style="margin-top: var(--space-8);">
+                <!-- Priority 1 - Critical (Red) -->
+                <div class="alert-card alert-card-p1">
+                    <div class="alert-card-content">
+                        <div class="alert-card-header">
+                            <div class="alert-card-icon" style="background: hsl(0, 70%, 50%);">P</div>
+                            <div class="alert-card-main">
+                                <h3 class="alert-card-title">Maximum 4xx GreaterThanOrEqualToThresh</h3>
+                                <div class="alert-card-meta">
+                                    <span class="alert-priority alert-priority-p1">P1</span>
+                                    <span class="alert-separator">•</span>
+                                    <span class="alert-date">18-May-2025</span>
+                                </div>
+                            </div>
+                            <div class="alert-card-actions">
+                                <button class="alert-status alert-status-open">Open</button>
+                                <div class="alert-icons">
+                                    <span class="alert-icon">🔔</span>
+                                    <span class="alert-icon-badge">
+                                        <span class="alert-icon-grid">⊞</span>
+                                        <span class="alert-badge">1</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Priority 2 - High (Orange) -->
+                <div class="alert-card alert-card-p2">
+                    <div class="alert-card-content">
+                        <div class="alert-card-header">
+                            <div class="alert-card-icon" style="background: hsl(25, 90%, 55%);">🔥</div>
+                            <div class="alert-card-main">
+                                <h3 class="alert-card-title">Database Connection Pool Exhausted</h3>
+                                <div class="alert-card-meta">
+                                    <span class="alert-priority alert-priority-p2">P2</span>
+                                    <span class="alert-separator">•</span>
+                                    <span class="alert-date">18-May-2025</span>
+                                </div>
+                            </div>
+                            <div class="alert-card-actions">
+                                <button class="alert-status alert-status-investigating">Investigating</button>
+                                <div class="alert-icons">
+                                    <span class="alert-icon">🔔</span>
+                                    <span class="alert-icon-badge">
+                                        <span class="alert-icon-grid">⊞</span>
+                                        <span class="alert-badge">3</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Priority 3 - Medium (Blue) -->
+                <div class="alert-card alert-card-p3">
+                    <div class="alert-card-content">
+                        <div class="alert-card-header">
+                            <div class="alert-card-icon" style="background: hsl(214, 75%, 50%);">⚡</div>
+                            <div class="alert-card-main">
+                                <h3 class="alert-card-title">API Response Time Degraded</h3>
+                                <div class="alert-card-meta">
+                                    <span class="alert-priority alert-priority-p3">P3</span>
+                                    <span class="alert-separator">•</span>
+                                    <span class="alert-date">18-May-2025</span>
+                                </div>
+                            </div>
+                            <div class="alert-card-actions">
+                                <button class="alert-status alert-status-open">Open</button>
+                                <div class="alert-icons">
+                                    <span class="alert-icon">🔔</span>
+                                    <span class="alert-icon-badge">
+                                        <span class="alert-icon-grid">⊞</span>
+                                        <span class="alert-badge">0</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Priority 4 - Low (Grey) - Resolved -->
+                <div class="alert-card alert-card-p4 alert-card-resolved">
+                    <div class="alert-card-content">
+                        <div class="alert-card-header">
+                            <div class="alert-card-icon" style="background: var(--grey-600);">✓</div>
+                            <div class="alert-card-main">
+                                <h3 class="alert-card-title">Memory Usage Above Threshold</h3>
+                                <div class="alert-card-meta">
+                                    <span class="alert-priority alert-priority-p4">P4</span>
+                                    <span class="alert-separator">•</span>
+                                    <span class="alert-date">17-May-2025</span>
+                                </div>
+                            </div>
+                            <div class="alert-card-actions">
+                                <button class="alert-status alert-status-resolved">Resolved</button>
+                                <div class="alert-icons">
+                                    <span class="alert-icon">🔔</span>
+                                    <span class="alert-icon-badge">
+                                        <span class="alert-icon-grid">⊞</span>
+                                        <span class="alert-badge">0</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison: Before/After -->
+            <div style="margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--grey-700);">
+                <h3 style="color: white; margin-bottom: var(--space-6);">Key Improvements</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
+                    <div>
+                        <h4 style="color: var(--grey-300); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-4);">Before</h4>
+                        <ul style="color: var(--grey-400); font-size: var(--text-sm); line-height: 1.8;">
+                            <li>Explicit labels ("Priority:", "Created:")</li>
+                            <li>All elements compete for attention</li>
+                            <li>No clear visual hierarchy</li>
+                            <li>Unclear priority indication</li>
+                            <li>Status button not contextual</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--grey-300); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-4);">After</h4>
+                        <ul style="color: var(--grey-400); font-size: var(--text-sm); line-height: 1.8;">
+                            <li>Labels removed - format conveys meaning</li>
+                            <li>Clear hierarchy: title → status → metadata</li>
+                            <li>Accent borders indicate priority</li>
+                            <li>Color-coded status badges</li>
+                            <li>De-emphasized resolved items</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

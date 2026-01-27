@@ -1,0 +1,103 @@
+# Cursor Rules for Xponentia Website
+
+## Project Overview
+This is a static HTML/CSS/JavaScript website for Xponentia Capital Partners LLP. The project uses vanilla JavaScript, semantic HTML, and CSS with custom properties.
+
+## Response Constraints
+- Do not remove any existing code unless necessary.
+- Do not remove comments or commented-out code unless necessary.
+- Do not change the formatting of imports or existing code unless important for new functionality.
+- Preserve existing accessibility features (ARIA labels, semantic HTML, skip links).
+- Maintain SEO optimizations (meta tags, schema.org markup, canonical URLs).
+
+## Code Style and Structure
+
+### HTML
+- Use semantic HTML5 elements (header, nav, main, section, article, footer).
+- Include proper accessibility attributes (aria-label, aria-expanded, role, etc.).
+- Maintain consistent indentation (2 spaces).
+- Use descriptive class names with BEM-like conventions when appropriate.
+- Include skip links and proper heading hierarchy for accessibility.
+- Ensure all images have alt attributes.
+- Use proper meta tags for SEO (description, keywords, Open Graph, Twitter cards).
+
+### CSS
+- Use CSS custom properties (variables) defined in :root for colors, typography, and spacing.
+- Follow the existing CSS organization: reset, variables, base styles, components, utilities.
+- Use meaningful class names that describe purpose, not appearance.
+- Maintain consistent spacing using the defined spacing variables.
+- Use mobile-first responsive design approach.
+- Keep CSS organized and maintainable with clear section comments.
+- Use efficient selectors and avoid overly specific selectors when possible.
+
+### JavaScript
+- Use vanilla JavaScript (no frameworks).
+- Wrap code in IIFE (Immediately Invoked Function Expression) with 'use strict'.
+- Use descriptive function names with verbs (initMobileMenu, showModal, hideModal).
+- Prefer function declarations over arrow functions for top-level functions.
+- Use event delegation when appropriate for performance.
+- Handle edge cases and provide fallbacks for browser compatibility.
+- Maintain accessibility features (keyboard navigation, focus management, ARIA updates).
+
+## Naming Conventions
+- Use lowercase with dashes for CSS classes and IDs (e.g., `header-container`, `menu-toggle`).
+- Use camelCase for JavaScript variables and functions (e.g., `initMobileMenu`, `isOpen`).
+- Use descriptive names that indicate purpose (e.g., `skip-link`, `scam-alert-modal`).
+
+## TypeScript/JavaScript Usage
+- Use vanilla JavaScript with modern ES6+ features where supported.
+- Use const/let instead of var.
+- Prefer template literals for string concatenation.
+- Use arrow functions for callbacks and short functions.
+- Use function declarations for named functions.
+
+## Syntax and Formatting
+- Use 2 spaces for indentation.
+- Use curly braces for all conditionals and loops.
+- Favor simplicity and readability over cleverness.
+- Use meaningful comments to explain complex logic.
+- Keep functions focused and single-purpose.
+
+## Accessibility (a11y)
+- Always include proper ARIA attributes.
+- Ensure keyboard navigation works for all interactive elements.
+- Maintain proper focus management in modals and dynamic content.
+- Use semantic HTML elements.
+- Ensure sufficient color contrast.
+- Include skip links for keyboard users.
+- Test with screen readers when adding new interactive elements.
+
+## SEO Best Practices
+- Maintain proper heading hierarchy (h1 → h2 → h3).
+- Include meta descriptions and keywords.
+- Use semantic HTML structure.
+- Include Schema.org structured data where appropriate.
+- Ensure all pages have canonical URLs.
+- Optimize images with proper alt text and loading attributes.
+
+## Performance Optimization
+- Use lazy loading for images.
+- Minimize CSS and JavaScript where possible.
+- Use efficient selectors.
+- Avoid unnecessary DOM queries (cache selectors when reused).
+- Use CSS transitions instead of JavaScript animations when possible.
+- Optimize images (appropriate formats, sizes).
+
+## Browser Compatibility
+- Support modern browsers (last 2 versions of major browsers).
+- Provide fallbacks for older browsers when necessary (e.g., IntersectionObserver).
+- Test responsive design across common device sizes.
+
+## File Organization
+- Keep HTML files in root directory.
+- Keep CSS in `css/` directory.
+- Keep JavaScript in `js/` directory.
+- Keep images in `images/` directory.
+- Maintain consistent file naming (lowercase with dashes).
+
+## Code Quality
+- Write clean, maintainable code.
+- Avoid code duplication; extract reusable patterns.
+- Use consistent formatting throughout the project.
+- Ensure code is readable and self-documenting.
+- Handle errors gracefully.
