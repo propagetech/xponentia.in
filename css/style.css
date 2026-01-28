@@ -22,6 +22,7 @@
     --hero-overlay: rgba(0, 0, 0, 0.6);
     --text-white: #ffffff;
     --color-dotteds-rgb: 34, 34, 34;
+    --modal-heading-accent: #b91c1c; /* Darker red for WCAG contrast on white */
     
     /* Typography */
     --font-heading: 'Playfair Display', serif;
@@ -55,6 +56,7 @@
     --hero-overlay: rgba(0, 0, 0, 0.8);
     --text-white: #ffffff;
     --color-dotteds-rgb: 209, 213, 219;
+    --modal-heading-accent: var(--accent-color);
   }
   
   html {
@@ -427,7 +429,7 @@
      ============================================ */
   .hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    background-image: url('https://3cbad1eca6e71eb3c994-a68c08e6b605fb67381b1b7e263c2c99.ssl.cf1.rackcdn.com/153484943013894459670m.jpeg');
+    background-image: url('../images/hero-background.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1338,6 +1340,7 @@
   .modal-content {
     position: relative;
     background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     max-width: 600px;
     width: 90%;
@@ -1391,8 +1394,9 @@
     padding-top: var(--spacing-lg);
   }
   
-  .modal-body h2 {
-    color: var(--accent-color);
+  .modal-body h2,
+  #scam-alert-title {
+    color: var(--modal-heading-accent);
     margin-top: 0;
     margin-bottom: var(--spacing-md);
     font-size: 1.75rem;
