@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com;">
 
   <meta name="description" content="Meet the Founders of Xponentia - Devinjit Singh and Perumal Srinivasan, Managing Partners with decades of investment experience.">
   <meta name="keywords" content="Xponentia, Founders, Devinjit Singh, Perumal Srinivasan, Private Equity, India, Investment Partners">
@@ -35,9 +34,7 @@
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Stylesheet - Preload for non-blocking render -->
-  <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+  <link rel="stylesheet" href="css/style.css">
 
   <title>Founders - Xponentia</title>
 
@@ -66,10 +63,7 @@
   <header>
     <div class="header-container">
       <a href="index.html" class="logo">
-        <picture>
-          <source srcset="images/xponentia-logo.webp" type="image/webp">
-          <img src="images/xponentia-logo.png" alt="Xponentia Capital Partners LLP" width="150" height="50" fetchpriority="high">
-        </picture>
+        <img src="images/xponentia-logo.png" alt="Xponentia Capital Partners LLP" width="150" height="50">
       </a>
       <div class="header-controls">
         <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
@@ -217,7 +211,7 @@
     </svg>
   </button>
 
-  <script src="js/main.js" defer></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
