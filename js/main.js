@@ -6,6 +6,7 @@
   // Initialize on DOM load
   document.addEventListener('DOMContentLoaded', function() {
     try {
+      initThemeToggle();
       initMobileMenu();
       initLazyLoading();
       initSkipLink();
@@ -15,6 +16,50 @@
       console.error('Error initializing website functionality:', error);
     }
   });
+
+  /**
+   * Theme toggle functionality
+   * Handles dark/light mode switching with localStorage persistence
+   */
+  function initThemeToggle() {
+    try {
+      const themeToggle = document.querySelector('.theme-toggle');
+      const html = document.documentElement;
+      
+      // Get saved theme or default to light
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      
+      // Apply saved theme
+      if (savedTheme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+      }
+      
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          try {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update aria-label for accessibility
+            themeToggle.setAttribute('aria-label', newTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+          } catch (error) {
+            console.error('Error toggling theme:', error);
+          }
+        });
+        
+        // Set initial aria-label
+        const currentTheme = html.getAttribute('data-theme');
+        themeToggle.setAttribute('aria-label', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+    } catch (error) {
+      console.error('Error initializing theme toggle:', error);
+    }
+  }
 
   /**
    * Mobile menu toggle functionality

@@ -61,9 +61,19 @@
       <a href="index.html" class="logo">
         <img src="images/xponentia-logo.png" alt="Xponentia Capital Partners LLP" width="150" height="50">
       </a>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">
-        <span aria-hidden="true">☰</span>
-      </button>
+      <div class="header-controls">
+        <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg class="theme-icon-light w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <svg class="theme-icon-dark w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">
+          <span aria-hidden="true">☰</span>
+        </button>
+      </div>
       <nav id="main-navigation" aria-label="Main navigation">
         <ul>
           <li><a href="index.html">ABOUT US</a></li>
@@ -107,28 +117,43 @@
 
   <footer>
     <div class="footer-content">
-      <p><strong>Address:</strong></p>
-      <p>Xponentia Capital Partners LLP /<br>
-        Xponentia Opportunities Fund-I /<br>
-        Xponentia Opportunities Fund II<br>
-        201B, 2nd Floor, Sarjan Plaza,<br>
-        Dr Annie Besant Road,<br>
-        Worli, Mumbai - 400018</p>
-
-      <p><strong>Email:</strong><br>
-        <a href="mailto:shilpa@xponentia.in">shilpa@xponentia.in</a> | <a href="mailto:compliance@xponentia.in">compliance@xponentia.in</a>
+      <div class="footer-nav-section">
+        <div class="footer-nav-column">
+          <a href="index.html">Home</a>
+          <a href="founders.html">Founders</a>
+        </div>
+        <div class="footer-nav-column">
+          <a href="team.html">Team</a>
+          <a href="value-creation.html">Value Creation Strategy</a>
+        </div>
+        <div class="footer-nav-column">
+          <a href="portfolio.html">Portfolio</a>
+          <a href="regulatory.html">Regulatory</a>
+        </div>
+        <div class="footer-nav-column">
+          <a href="contact.html">Contact Us</a>
+          <a href="security-compliance.html">Security & Compliance</a>
+        </div>
+      </div>
+      <div class="footer-separator"></div>
+      <p class="footer-address-line">
+        <strong>Address:</strong>
+        Xponentia Capital Partners LLP / Xponentia Opportunities Fund-I / Xponentia Opportunities Fund II, 201B, 2nd Floor, Sarjan Plaza, Dr Annie Besant Road, Worli, Mumbai - 400018
       </p>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="index.html">Home</a>
-        <a href="founders.html">Founders</a>
-        <a href="team.html">Team</a>
-        <a href="value-creation.html">Value Creation Strategy</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="regulatory.html">Regulatory</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="security-compliance.html">Security & Compliance</a>
-      </nav>
-      <p>&copy; 2025. Xponentia. All Rights Reserved.</p>
+      <div class="footer-bottom">
+        <!-- <div class="footer-legal">
+          <a href="#privacy-policy">Privacy Policy</a>
+          <a href="#legal-terms">Legal Terms</a>
+          <a href="#cookies-policy">Cookies Policy</a>
+        </div> -->
+        <p class="footer-copyright">&copy; 2026. Xponentia. All Rights Reserved.</p>
+        <div class="footer-contact-info">
+          <p><strong>Email:</strong> <a href="mailto:shilpa@xponentia.in">shilpa@xponentia.in</a> | <a href="mailto:compliance@xponentia.in">compliance@xponentia.in</a></p>
+        </div>
+      </div>
+      <div class="footer-powered-by">
+        Powered By: <a href="https://propage.in" target="_blank" rel="noopener noreferrer">ProPage.in</a>
+      </div>
     </div>
   </footer>
 

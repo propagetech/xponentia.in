@@ -121,4 +121,4 @@ Modern browsers (last 2 versions):
 
 ## License
 
-© 2025. Xponentia. All Rights Reserved.
+© 2026. Xponentia. All Rights Reserved.
