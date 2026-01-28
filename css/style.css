@@ -116,21 +116,34 @@
   li {
     margin-bottom: var(--spacing-xs);
     position: relative;
-    padding-left: 1.5em;
+    padding-left: 1.2em;
   }
   
   /* Custom bullet point for list items (excludes nav and team-bio) */
   li::before {
     content: '';
     position: absolute;
-    left: 12px;
-    top: calc(50% - 2px);
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
+    left: 0.2em;
+    top: 0.65em;
     background-image: url('../images/bullet-point.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  [data-theme="dark"] li::before {
+    background-color: var(--primary-color);
+    mask-image: url('../images/bullet-point.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../images/bullet-point.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    background-image: none;
   }
   
   /* Exclude navigation lists and team-bio lists from custom bullets */
@@ -557,6 +570,9 @@
   .capability-item {
     max-width: 320px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* gap: 2rem; */
   }
   .capability-item img{
     margin-bottom: 16px;
@@ -786,6 +802,19 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+
+  [data-theme="dark"] .founder-card .team-bio li::before {
+    background-color: var(--primary-color);
+    mask-image: url('../images/bullet-point.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../images/bullet-point.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    background-image: none;
+  }
   
   .founder-card .team-bio li ul {
     margin-top: var(--spacing-xs);
@@ -806,6 +835,19 @@
     height: 5px;
     left: 0.2em;
     top: 0.65em;
+  }
+
+  [data-theme="dark"] .founder-card .team-bio li ul li::before {
+    background-color: var(--primary-color);
+    mask-image: url('../images/bullet-point.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../images/bullet-point.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    background-image: none;
   }
   
   .team-member-detail:last-child {
@@ -866,6 +908,19 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+
+  [data-theme="dark"] .team-bio li::before {
+    background-color: var(--primary-color);
+    mask-image: url('../images/bullet-point.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../images/bullet-point.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    background-image: none;
+  }
   
   .team-bio li ul {
     margin-top: var(--spacing-xs);
@@ -886,6 +941,19 @@
     height: 5px;
     left: 0.2em;
     top: 0.65em;
+  }
+
+  [data-theme="dark"] .team-bio li ul li::before {
+    background-color: var(--primary-color);
+    mask-image: url('../images/bullet-point.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../images/bullet-point.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    background-image: none;
   }
   
   .intro-text {
@@ -947,6 +1015,11 @@
   /* ============================================
      FORMS & CONTACT
      ============================================ */
+  .contact-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
   .contact-form {
     margin: var(--spacing-lg) 0;
   }
@@ -1025,6 +1098,10 @@
     border-top: 1px solid var(--border-color);
     padding: var(--spacing-xl) var(--spacing-md);
     margin-top: var(--spacing-2xl);
+  }
+
+  [data-theme="dark"] footer {
+    background-color: var(--bg-light);
   }
   
   .footer-content {
@@ -1422,6 +1499,7 @@
   
     h2 {
       font-size: 1.75rem;
+      margin-top: 2.25rem;
     }
   
     .hero {
@@ -1528,8 +1606,19 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-bottom: 0;
+      padding-bottom: 1.4rem;
+      margin-top: 4rem;
     }
-  
+    .team-role{
+      text-align: center;
+    }
+    .capabilities-grid{
+      /* justify-content: center; */
+    }
+    .capability-item img {
+      margin-bottom: 1.5rem;
+    }
     .team-member-detail img {
       width: 150px;
       height: 150px;
@@ -1558,22 +1647,27 @@
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: var(--spacing-md);
     }
-  
+    .team-section{
+      margin-bottom: 0;
+    }
     .team-showcase-item img {
       width: 150px;
       height: 150px;
     }
-  
+    .portfolio-company h2{
+      margin-bottom: 0;
+    }
     .form-row {
       grid-template-columns: 1fr;
     }
   
     .container {
-      padding: var(--spacing-md) var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-sm) 0 var(--spacing-sm);
     }
   
     footer {
       padding: var(--spacing-lg) var(--spacing-sm);
+      margin-top: var(--spacing-lg);
     }
   
     .footer-nav-section {
@@ -1645,6 +1739,18 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
+    .contact-container {
+      grid-template-columns: 1fr;
+      margin-bottom: 0;
+      gap: 0;
+    }
+    .card, .portfolio-companies{
+      margin-bottom: 2rem;
+    }
+    .portfolio-company{
+      margin-bottom: 1.5rem;
+    }
+
   }
   
   /* ============================================
