@@ -1180,6 +1180,31 @@ body.modal-open {
 }
 
 /* ============================================
+   RESPONSIVE DESIGN - TABLET
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+    justify-items: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-nav a {
+    font-size: 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ============================================
    RESPONSIVE DESIGN - MOBILE
    ============================================ */
 @media (max-width: 768px) {
@@ -1332,6 +1357,18 @@ body.modal-open {
   .footer-nav {
     flex-direction: column;
     gap: var(--spacing-sm);
+    align-items: center;
+  }
+
+  .footer-nav a {
+    font-size: 0.875rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
   }
 
   table {
