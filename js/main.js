@@ -12,6 +12,7 @@
       initSkipLink();
       initSmoothScroll();
       initScamAlertModal();
+      initScrollUp();
     } catch (error) {
       console.error('Error initializing website functionality:', error);
     }
@@ -401,6 +402,40 @@
       setTimeout(showModal, 300);
     } catch (error) {
       console.error('Error initializing scam alert modal:', error);
+    }
+  }
+
+  /**
+   * Scroll up button
+   * Shows button when user scrolls down, scrolls to top on click
+   */
+  function initScrollUp() {
+    try {
+      const scrollUpBtn = document.querySelector('.scroll-up');
+      if (!scrollUpBtn) {
+        return;
+      }
+
+      function toggleVisibility() {
+        if (window.scrollY > 300) {
+          scrollUpBtn.classList.add('visible');
+        } else {
+          scrollUpBtn.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+      toggleVisibility();
+
+      scrollUpBtn.addEventListener('click', function() {
+        try {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+          window.scrollTo(0, 0);
+        }
+      });
+    } catch (error) {
+      console.error('Error initializing scroll up button:', error);
     }
   }
 })();
