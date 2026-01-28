@@ -39,8 +39,12 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Preload LCP image with high priority -->
+  <link rel="preload" href="images/hero-background.jpeg" as="image" fetchpriority="high">
+
+  <!-- Stylesheet - Preload for non-blocking render -->
+  <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
 
   <title>Xponentia - Catalysing Sustainable Growth</title>
 
@@ -90,7 +94,10 @@
   <header>
     <div class="header-container">
       <a href="index.html" class="logo">
-        <img src="images/xponentia-logo.png" alt="Xponentia Capital Partners LLP" width="150" height="50">
+        <picture>
+          <source srcset="images/xponentia-logo.webp" type="image/webp">
+          <img src="images/xponentia-logo.png" alt="Xponentia Capital Partners LLP" width="150" height="50" fetchpriority="high">
+        </picture>
       </a>
       <div class="header-controls">
         <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
@@ -232,7 +239,7 @@
     </svg>
   </button>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 
 </html>
