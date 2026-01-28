@@ -28,7 +28,8 @@ This is a static HTML/CSS/JavaScript website for Xponentia Capital Partners LLP.
 - Maintain consistent spacing using the defined spacing variables.
 - Use mobile-first responsive design approach.
 - Keep CSS organized and maintainable with clear section comments.
-- Use efficient selectors and avoid overly specific selectors when possible.
+- Use efficient selectors that are specific enough to avoid unintended side effects, but not overly specific (avoid deep nesting like `.container .wrapper .content .item`).
+- Balance selector specificity: specific enough to target intended elements, but not unnecessarily complex.
 
 ### JavaScript
 - Use vanilla JavaScript (no frameworks).
@@ -101,3 +102,101 @@ This is a static HTML/CSS/JavaScript website for Xponentia Capital Partners LLP.
 - Use consistent formatting throughout the project.
 - Ensure code is readable and self-documenting.
 - Handle errors gracefully.
+
+## Build and Minification
+- Use `npm run minify` to minify HTML, CSS, and JavaScript files before deployment.
+- Minified files should be production-ready and optimized for performance.
+- Keep source files readable; minification is a build step.
+- Do not commit minified files separately if they're generated from source.
+- The minify script preserves important comments and functionality.
+
+## Dark Mode
+- Implement dark mode using `data-theme="dark"` attribute on `<html>` element.
+- Use CSS custom properties for theme-aware colors.
+- Store theme preference in localStorage for persistence.
+- Provide theme toggle button with proper ARIA labels.
+- Ensure all components work correctly in both light and dark modes.
+- Test color contrast in both themes for accessibility compliance.
+
+## Modal Components
+- Use semantic modal structure with proper ARIA attributes (role="dialog", aria-modal="true", aria-labelledby).
+- Implement focus trap within modals for keyboard navigation.
+- Close modals on Escape key press.
+- Close modals when clicking overlay (but not modal content).
+- Prevent body scroll when modal is open.
+- Manage focus properly: focus close button on open, return focus on close.
+- Use consistent modal styling and animation patterns.
+
+## Form Handling
+- Use semantic form elements with proper labels.
+- Associate labels with inputs using `for` attribute or implicit association.
+- Provide clear error messages and validation feedback.
+- Ensure forms are keyboard accessible.
+- Use appropriate input types (email, tel, etc.) for better mobile UX.
+- Include required field indicators where appropriate.
+- Handle form submission gracefully with user feedback.
+
+## Security Headers
+- Maintain `_headers` file for cache control and security headers.
+- Set appropriate cache headers for different asset types:
+  - Images: long cache (1 year) with immutable flag
+  - CSS/JS: medium cache (6 months)
+  - HTML: short cache (1 hour)
+- Keep Content Security Policy (CSP) meta tags updated in HTML.
+- Ensure CSP allows necessary external resources (fonts, etc.) while maintaining security.
+
+## Git and Version Control
+- Do not commit `node_modules/`, build artifacts, or sensitive files.
+- Keep `.gitignore` updated with appropriate exclusions.
+- Commit minified files if they're part of the production build.
+- Use meaningful commit messages.
+- Do not commit large binary files (PDFs, Excel files) - use `.gitignore` for audit reports.
+
+## Deployment
+- Ensure all files are minified before deployment.
+- Verify all links work correctly (internal and external).
+- Test responsive design across devices before deploying.
+- Check that all images load correctly and have proper alt text.
+- Verify security headers are properly configured.
+- Test dark mode functionality.
+- Ensure modals and interactive elements work correctly.
+- Verify SEO meta tags and structured data are present.
+
+## Image Optimization
+- Use WebP format with PNG/JPEG fallbacks using `<picture>` element.
+- Include `loading="lazy"` attribute for below-the-fold images.
+- Use `fetchpriority="high"` for LCP (Largest Contentful Paint) images.
+- Provide descriptive alt text for all images.
+- Optimize image file sizes before committing.
+- Use appropriate image dimensions (avoid oversized images).
+- Consider using responsive images with `srcset` when appropriate.
+
+## Content Security Policy
+- Maintain CSP meta tag in HTML head.
+- Allow necessary external resources:
+  - Google Fonts (fonts.googleapis.com, fonts.gstatic.com)
+  - Self-hosted resources
+- Use 'unsafe-inline' only when necessary (for styles/scripts).
+- Keep CSP as restrictive as possible while maintaining functionality.
+- Review CSP when adding new external resources.
+
+## Structured Data (Schema.org)
+- Include Organization schema on homepage.
+- Add BreadcrumbList schema for navigation context.
+- Use proper JSON-LD format for structured data.
+- Keep structured data accurate and up-to-date.
+- Validate structured data using Google's Rich Results Test.
+
+## Documentation
+- Keep README.md updated with project information.
+- Document any significant changes or decisions.
+- Maintain code comments for complex logic.
+- Document any external dependencies or requirements.
+- Keep security audit reports organized but not committed (use .gitignore).
+
+## Error Handling
+- Use try-catch blocks for error-prone operations.
+- Log errors to console for debugging (remove in production if needed).
+- Provide graceful fallbacks for unsupported browser features.
+- Handle edge cases (missing elements, null values, etc.).
+- Ensure errors don't break the entire page functionality.
